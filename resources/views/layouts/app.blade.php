@@ -8,11 +8,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/your-embed-code.js">
+    {{-- <script src="https://use.fontawesome.com/your-embed-code.js"></script> --}}
     <!-- Fonts -->
+    <link src="{{asset('fonts/fontawesome-free-6.3.0-web/css/all.css')}}" rel="stylesheet">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+    <style>
+        body{
+            box-sizing: border-box
+        }
+    </style>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -20,8 +26,21 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" href="{{ url('/') }}" >
+                    {{-- {{ config('app.name', 'Laravel') }} --}}
+                    Yalla Net-lob
+                </a>
+                <a class="navbar mx-3 border-start p-3 border-secondary"  href="{{ route('friends.index') }}" style="text-decoration: none;">
+                    {{-- {{ config('app.name', 'Laravel') }} --}}
+                    Friends
+                </a>
+                <a class="navbar border-start p-3 border-secondary" href="{{  route('groubs.index') }}" style="text-decoration: none;">
+                    {{-- {{ config('app.name', 'Laravel') }} --}}
+                    Groubs
+                </a>
+                <a class="navbar border-start p-3 border-secondary" href="{{  route('groubs.index') }}" style="text-decoration: none;">
+                    {{-- {{ config('app.name', 'Laravel') }} --}}
+                    Orders
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -76,5 +95,7 @@
             @yield('content')
         </main>
     </div>
+    <script src="{{asset('jquery/jquery-3.5.1.js')}}"></script>
+
 </body>
 </html>

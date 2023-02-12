@@ -11,4 +11,9 @@ class Groub extends Model
 
     use  HasFactory, SoftDeletes;
     protected $fillable = ['name'];
+
+    public function friend()
+    {
+        return $this->hasMany(Friend::class);
+    }
 }

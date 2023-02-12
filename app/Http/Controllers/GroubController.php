@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Friend;
 use App\Models\Groub;
 use Illuminate\Http\Request;
 
@@ -36,12 +37,15 @@ class GroubController extends Controller
      */
     public function store(Request $request)
     {
+
+            $request->validate([
+                'name' => 'required|unique:groubs|max:100',
+            ]);
+
         // dd($request->all());
-        $request->validate([
-            'name' => 'required|unique:groubs|max:100',
-        ]);
+
         Groub::create($request->all());
-        return redirect()->route('groubs.index')->with('success', 'Your Post has been added successfully!');
+        return redirect()->route('groubs.index')->with('success', 'Your Group has been added successfully!');
 
 
     }
@@ -54,7 +58,22 @@ class GroubController extends Controller
      */
     public function show(Groub $groub)
     {
-        //
+        $groubs = Groub::all();
+        // $friends = Friend::where('groub_id','!=',$groub->id )->get();
+        $friends = Friend::where('groub_id','=',null )->get();
+        $friendsInGroub = Friend::where('groub_id','=',$groub->id )->get();
+        return view('groups.all',['groubs'=>$groubs,'groub'=>$groub,'friendsInGroub'=>$friendsInGroub,'friends'=>$friends]);
+    }
+    public function addFrientoGroub(Request $request){
+        // dd($request->all());
+        $request->validate([
+            'groub_id' => 'required',
+            'friend_id' => 'required',
+        ]);
+        $friend = Friend::find($request->friend_id);
+        $friend->groub_id = $request->groub_id;
+        $friend->save();
+        return redirect()->back()->with('success_add_user', 'Your Friend has been added successfully!');
     }
 
     /**
