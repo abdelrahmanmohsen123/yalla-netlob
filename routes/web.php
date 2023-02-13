@@ -1,13 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GroubController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\SubscriberController;
-use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderdetailController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------

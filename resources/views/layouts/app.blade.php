@@ -78,7 +78,7 @@
             align-items: center;
 
         }
-        .mt-100{margin-top: 100px}body{background: #00B4DB;background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);background: linear-gradient(to right, #0083B0, #00B4DB);color: #514B64;min-height: 100vh}
+        /* .mt-100{margin-top: 100px}body{background: #00B4DB;background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);background: linear-gradient(to right, #0083B0, #00B4DB);color: #514B64;min-height: 100vh} */
 
     </style>
     @stack('css')
@@ -189,29 +189,7 @@
             @yield('content')
         </main>
     </div>
-<<<<<<< HEAD
-    <script src="{{asset('jquery/jquery-3.5.1.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <script src="">
-        $(document).ready(function(){
-
-            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-            removeItemButton: true,
-            // maxItemCount:5,
-            // searchResultLimit:5,
-            // renderChoiceLimit:5
-            });
-
-
-        });
-    </script>
-    @stack('script')
-=======
     <script src="{{ asset('jquery/jquery-3.5.1.js') }}"></script>
->>>>>>> refs/remotes/origin/master
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'All Products')
+@section('title', 'All Groubs')
 
 @section('content')
     <?php
@@ -55,22 +55,22 @@
                     <table class="table table-hover table-borderless">
                         <thead class="bg-danger text-light">
                             <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Add user</th>
-                                <th scope="col">Delete</th>
+                                <th scope="col-10">Name</th>
+                                <th scope="col-2">Action</th>
+                                {{-- <th scope="col-2">Delete</th> --}}
                             </tr>
                         </thead>
                         <tbody>
                             @if ($groubs != null)
-                                @foreach ($groubs as $groub)
+                                @foreach ($groubs as $groubb)
                                     <tr>
-                                        <th scope="row">{{ $groub->name }}</th>
+                                        <th scope="row">{{ $groubb->name }}</th>
                                         <td>
                                             <a class="btn btn-outline-primary border-0 rounded-pill"
-                                                href="{{ route('groubs.show', $groub->id) }}" id="add_user"><i
+                                                href="{{ route('groubs.show', $groubb->id) }}" id="add_user"><i
                                                     class="fa-solid fa-user-plus"></i></a>
-                                        </td>
-                                        <td>
+                                        {{-- </td>
+                                        <td> --}}
                                             <a class="btn btn-outline-danger border-0 rounded-pill" href=""
                                                 id="add_user"><i class="fa-solid fa-user-minus"></i></a>
                                         </td>
@@ -93,14 +93,16 @@
             @isset($groub)
                 {{-- @dd($groub); --}}
                 <div class="col-md-12 col-lg-6 mt-2">
-                    <h5 class="m-2"> {{ $groub->name }}</h5>
+                    <h5 class="m-2">Groub Name : {{ $groub->name }}</h5>
+                    @if (session('success_add_user'))
+                    <div class="col-sm-12 text-center">
+                            <div class="alert  alert-success alert-dismissible fade show" role="alert">
+                                {{ session('success_add_user') }}
+                            </div>
+                        </div>
+                    @endif
                     <div class="card bg-white p-2 rounded-0 shadow border-0 ">
-                        @if (session('success_add_user'))
-                            toastr()->success( {{ session('success_add_user') }}, 'Congrats', ['timeOut' => 2500]);
-                        @endif
-                        @if (session('fail'))
-                            toastr()->error('Oops! Something went wrong!');
-                        @endif
+
                         @isset($friends)
                             <form action="{{ route('addFrientoGroub') }}" method="post">
                                 @csrf
@@ -142,7 +144,9 @@
                         @endisset
                     </div>
                 </div>
+
             @endisset
+
         </div>
         {{-- paginate --}}
         {{-- <div class="container my-5 w-50 m-auto text-center">

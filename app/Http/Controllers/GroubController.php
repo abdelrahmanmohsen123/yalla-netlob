@@ -60,7 +60,7 @@ class GroubController extends Controller
     {
         $groubs = Groub::all();
         // $friends = Friend::where('groub_id','!=',$groub->id )->get();
-        $friends = Friend::where('groub_id','=',null )->get();
+        $friends = Friend::where('groub_id','!=',$groub->id )->get();
         $friendsInGroub = Friend::where('groub_id','=',$groub->id )->get();
         return view('groups.all',['groubs'=>$groubs,'groub'=>$groub,'friendsInGroub'=>$friendsInGroub,'friends'=>$friends]);
     }
