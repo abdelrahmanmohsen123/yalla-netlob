@@ -62,6 +62,21 @@
             background: red;
             visibility: visible;
         }
+
+        .active {
+            font-weight: bold;
+            color: black;
+            border-bottom: 3px solid red
+        }
+
+        .friend-card {
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+
+        }
     </style>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -88,13 +103,13 @@
                     </a>
                     <!-- Left links -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
+                        <li class="nav-item {{ Request::segment(1) === 'friends' ? 'active' : null }}">
                             <a class="nav-link" href="{{ route('friends.index') }}">Friends</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ Request::segment(1) === 'groubs' ? 'active' : null }}">
                             <a class="nav-link" href="{{ route('groubs.index') }}">Groups</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" {{ Request::segment(1) === 'orders' ? 'active' : null }}>
                             <a class="nav-link" href="{{ route('groubs.index') }}">Orders</a>
                         </li>
                     </ul>

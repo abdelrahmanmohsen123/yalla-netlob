@@ -95,23 +95,11 @@
                 <div class="col-md-12 col-lg-6 mt-2">
                     <h5 class="m-2"> {{ $groub->name }}</h5>
                     <div class="card bg-white p-2 rounded-0 shadow border-0 ">
-                        {{-- <div class="col-12">
-                            all users
-                            {{ $groub->name }}
-                        </div> --}}
                         @if (session('success_add_user'))
-                            <div class="col-sm-12 text-center">
-                                <div class="alert  alert-success alert-dismissible fade show" role="alert">
-                                    {{ session('success_add_user') }}
-                                </div>
-                            </div>
+                            toastr()->success( {{ session('success_add_user') }}, 'Congrats', ['timeOut' => 2500]);
                         @endif
                         @if (session('fail'))
-                            <div class="col-sm-12 text-center">
-                                <div class="alert  alert-danger alert-dismissible fade show" role="alert">
-                                    {{ session('fail') }}
-                                </div>
-                            </div>
+                            toastr()->error('Oops! Something went wrong!');
                         @endif
                         @isset($friends)
                             <form action="{{ route('addFrientoGroub') }}" method="post">
@@ -152,9 +140,7 @@
                                 @endforeach
                             </div>
                         @endisset
-
                     </div>
-
                 </div>
             @endisset
         </div>
