@@ -32,9 +32,9 @@ return [
     ],
 
     'google' => [
-        'client_id' => env('GOOGLE_CLIENT_ID'),
-        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_REDIRECT'),
+        'client_id' => env('481168486471-of31vp44as2phtse72pd8crh9uo9dt9v.apps.googleusercontent.com'),
+        'client_secret' => env('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'),
+        'redirect' => env('http://127.0.0.1:8000/login/google/callback'),
     ],
 
 ];

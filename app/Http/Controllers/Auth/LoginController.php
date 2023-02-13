@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,7 +61,7 @@ class LoginController extends Controller
         // Use the user information to create or update your user model
 
         // Log the user in
-        Auth::login($user, true);
+        Auth::login($user);
 
         return redirect()->to('/home');
     }

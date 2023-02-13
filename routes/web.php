@@ -21,10 +21,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get("google",function(){
+Route::get("google", function () {
 
-    Return view("googleAuth");
-
+    return view("googleAuth");
 });
 
 // Route::get('auth/google', 'Auth\LoginController@redirectToGoogle');
@@ -32,14 +31,14 @@ Route::get("google",function(){
 // Route::get('auth/google/callback', 'Auth\LoginController@handleGoogleCallback');
 
 
-Route::get('login/{provider}', [LoginController::class,'redirectToProvider']);
-Route::get('login/google/callback', [LoginController::class,'andleProviderCallback']);
+Route::get('login/{provider}', [LoginController::class, 'redirectToProvider']);
+Route::get('login/google/callback', [LoginController::class, 'handleProviderCallback']);
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('groubs', GroubController::class);
-Route::post('addFrientoGroub', [GroubController::class,'addFrientoGroub'])->name('addFrientoGroub');
+Route::post('addFrientoGroub', [GroubController::class, 'addFrientoGroub'])->name('addFrientoGroub');
 Route::resource('friends', FriendController::class);
 
 
