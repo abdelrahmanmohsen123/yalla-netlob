@@ -27,7 +27,56 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
     <style>
         body {
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Cairo', sans-serif !important;
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        .logo {
+            font-family: fantasy;
+            letter-spacing: -.5px;
+        }
+
+        .group-card {
+            max-height: 65vh !important;
+            overflow-y: auto;
+        }
+
+        .group-card::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        /* Handle */
+        .group-card::-webkit-scrollbar-thumb {
+            visibility: hidden;
+            background: red;
+            border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        .group-card::-webkit-scrollbar-thumb:hover {
+            background: lightpink;
+            visibility: visible;
+        }
+
+        .group-card:hover::-webkit-scrollbar-thumb {
+            background: red;
+            visibility: visible;
+        }
+
+        .active {
+            font-weight: bold;
+            color: black;
+            border-bottom: 3px solid red
+        }
+
+        .friend-card {
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+
         }
         .mt-100{margin-top: 100px}body{background: #00B4DB;background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);background: linear-gradient(to right, #0083B0, #00B4DB);color: #514B64;min-height: 100vh}
 
@@ -38,39 +87,64 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body>
+<body class="bg-white">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}" >
-                    {{-- {{ config('app.name', 'Laravel') }} --}}
-                    Yalla Net-lob
-                </a>
-                <a class="navbar mx-3 border-start p-3 border-secondary"  href="{{ route('friends.index') }}" style="text-decoration: none;">
-                    {{-- {{ config('app.name', 'Laravel') }} --}}
-                    Friends
-                </a>
-                <a class="navbar border-start p-3 border-secondary" href="{{  route('groubs.index') }}" style="text-decoration: none;">
-                    {{-- {{ config('app.name', 'Laravel') }} --}}
-                    Groubs
-                </a>
-                <a class="navbar border-start p-3 border-secondary" href="{{  route('orders.index') }}" style="text-decoration: none;">
-                    {{-- {{ config('app.name', 'Laravel') }} --}}
-                    Orders
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm ">
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+                <!-- Toggle button -->
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
                 </button>
 
+                <!-- Collapsible wrapper -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
+                    <!-- Navbar brand -->
+                    <a class="navbar-brand logo" href="{{ url('/') }}">
+                        {{-- {{ config('app.name', 'Laravel') }} --}}
+                        Yalla !lob
+                    </a>
+                    <!-- Left links -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item {{ Request::segment(1) === 'friends' ? 'active' : null }}">
+                            <a class="nav-link" href="{{ route('friends.index') }}">Friends</a>
+                        </li>
+                        <li class="nav-item {{ Request::segment(1) === 'groubs' ? 'active' : null }}">
+                            <a class="nav-link" href="{{ route('groubs.index') }}">Groups</a>
+                        </li>
+                        <li class="nav-item" {{ Request::segment(1) === 'orders' ? 'active' : null }}>
+                            <a class="nav-link" href="{{ route('orders.index') }}">Orders</a>
+                        </li>
                     </ul>
+                    <!-- Left links -->
+                </div>
+                <!-- Collapsible wrapper -->
 
-                    <!-- Right Side Of Navbar -->
+                <!-- Right elements -->
+                <div class="d-flex align-items-center">
+                    <!-- Icon -->
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <a class="text-reset me-3 dropdown-toggle hidden-arrow" href="#"
+                            id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                            <li>
+                                <a class="dropdown-item" href="#">Some news</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Another news</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Avatar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
@@ -107,13 +181,15 @@
                         @endguest
                     </ul>
                 </div>
+                <!-- Right elements -->
             </div>
+            <!-- Container wrapper -->
         </nav>
-
-        <main class="py-4">
+        <main class="py-4 ">
             @yield('content')
         </main>
     </div>
+<<<<<<< HEAD
     <script src="{{asset('jquery/jquery-3.5.1.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
 
@@ -133,6 +209,9 @@
         });
     </script>
     @stack('script')
+=======
+    <script src="{{ asset('jquery/jquery-3.5.1.js') }}"></script>
+>>>>>>> refs/remotes/origin/master
 </body>
 
 </html>
