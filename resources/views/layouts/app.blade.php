@@ -24,6 +24,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
     <style>
         body {
             font-family: 'Cairo', sans-serif !important;
@@ -77,7 +78,11 @@
             align-items: center;
 
         }
+        .mt-100{margin-top: 100px}body{background: #00B4DB;background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);background: linear-gradient(to right, #0083B0, #00B4DB);color: #514B64;min-height: 100vh}
+
     </style>
+    @stack('css')
+    @stack('styles')
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -110,7 +115,7 @@
                             <a class="nav-link" href="{{ route('groubs.index') }}">Groups</a>
                         </li>
                         <li class="nav-item" {{ Request::segment(1) === 'orders' ? 'active' : null }}>
-                            <a class="nav-link" href="{{ route('groubs.index') }}">Orders</a>
+                            <a class="nav-link" href="{{ route('orders.index') }}">Orders</a>
                         </li>
                     </ul>
                     <!-- Left links -->
@@ -184,7 +189,29 @@
             @yield('content')
         </main>
     </div>
+<<<<<<< HEAD
+    <script src="{{asset('jquery/jquery-3.5.1.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="">
+        $(document).ready(function(){
+
+            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+            removeItemButton: true,
+            // maxItemCount:5,
+            // searchResultLimit:5,
+            // renderChoiceLimit:5
+            });
+
+
+        });
+    </script>
+    @stack('script')
+=======
     <script src="{{ asset('jquery/jquery-3.5.1.js') }}"></script>
+>>>>>>> refs/remotes/origin/master
 </body>
 
 </html>

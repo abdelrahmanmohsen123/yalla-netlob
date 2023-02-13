@@ -1,11 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\FriendController;
 use App\Http\Controllers\GroubController;
-use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\FriendController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\SubscriberController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\OrderdetailController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +43,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('groubs', GroubController::class);
 Route::post('addFrientoGroub', [GroubController::class, 'addFrientoGroub'])->name('addFrientoGroub');
 Route::resource('friends', FriendController::class);
+Route::resource('orders', OrderController::class);
+Route::resource('orderdetails', OrderdetailController::class);
+
 
 
 
