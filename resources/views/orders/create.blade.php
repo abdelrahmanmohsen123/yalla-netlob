@@ -70,10 +70,12 @@
                     </div>
                     <div class=" offser-md-3  form-group">
                         <h6 class="pt-2">Invite Friends</h6>
-                        <select name="tags[]" multiple='multiple' id="tags" class="tags form-control">
-                            <option value="AL">Alabama</option>
-                            ...
-                            <option value="WY">Wyoming</option>
+                        <select name="invite_friends[]" multiple='multiple' id="tags" class="tags form-control">
+                            @foreach ($friends_user as $friend_user )
+                                 <option value="{{$friend_user->id}}">{{$friend_user->name}}</option>
+                            @endforeach
+
+
                         </select>
 
                         @error('tags')

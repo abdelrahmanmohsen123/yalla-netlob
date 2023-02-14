@@ -38,6 +38,7 @@ use Carbon\Carbon;
                       <tr>
                         <th scope="col">Order</th>
                         <th scope="col">Restaurant</th>
+                        <th scope="col">Invited</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
                       </tr>
@@ -48,6 +49,7 @@ use Carbon\Carbon;
 
                             <th scope="row">{{$order->order_for}}</th>
                             <td>{{$order->restaurant_name}}</td>
+                            <td>{{  $order->invites_count}}</td>
                             <td>{{$order->status}}</td>
                             <td>
                                 <a href="{{route('orders.show',$order->id)}}" class="btn btn-primary">View</a>
@@ -61,7 +63,7 @@ use Carbon\Carbon;
                         @empty
 
                         <tr class="text-center">
-                            <th colspan="4" class="alert alert-danger">There is no Order</th>
+                            <th colspan="5" class="alert alert-danger">There is no Order</th>
 
                          </tr>
 

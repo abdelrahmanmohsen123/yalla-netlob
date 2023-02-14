@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('friends', function (Blueprint $table) {
-            //
-            $table->string('email',100)->unique();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')
+              ->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -28,7 +29,6 @@ return new class extends Migration
     {
         Schema::table('friends', function (Blueprint $table) {
             //
-            $table->dropColumn('email');
         });
     }
 };

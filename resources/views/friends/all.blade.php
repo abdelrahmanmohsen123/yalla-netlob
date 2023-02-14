@@ -33,13 +33,17 @@
                                         <div class="col-7">
                                             <input type="text" class="form-control" name="name">
                                         </div>
-                                        <div class="col-4 text-center">
-                                            <label class="form-label lead">
-                                                His Email</label>
-                                        </div>
-                                        <div class="col-7">
-                                            <input type="email" class="form-control" name="email">
-                                        </div>
+                                    </div>
+                                    <div class="row my-3">
+
+                                            <div class="col-4 text-center">
+                                                <label class="form-label lead">
+                                                     Email</label>
+                                            </div>
+                                            <div class="col-7 ">
+                                                <input type="email" class="form-control" name="email">
+                                            </div>
+                                         </div>
                                         <div class="modal-footer my-3">
                                             <button type="submit" class="btn btn-primary">Add</button>
 
@@ -77,7 +81,7 @@
                     {{-- <ul class="list-group list-group-flush"> --}}
                     <div class="container my-4 row row-cols-auto mx-auto justify-content-center ">
                         @if ($friends != null)
-                            @foreach ($friends as $friend)
+                        @forelse ($friends as $friend)
                                 <div class="card  m-2 friend-card">
                                     <div class="d-flex align-items-center justify-content-between w-100">
                                         <div class="d-flex align-items-center">
@@ -100,7 +104,9 @@
                                         </form>
                                     </div>
                                 </div>
-                            @endforeach
+                                @empty
+                                <li class="list-group-item alert alert-danger">Ther is no Friends</li>
+                                @endforelse
                         @else
                             <li class="list-group-item alert alert-danger">Ther is no Friends</li>
                         @endif

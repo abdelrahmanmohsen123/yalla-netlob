@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Friend;
+use App\Models\FriendOrder;
 use App\Models\Order;
 use App\Models\Orderdetail;
 use Illuminate\Http\Request;
@@ -16,7 +18,7 @@ class OrderController extends Controller
     public function index()
     {
         //
-        $orders = Order::all();
+        $orders = Order::where('user_id',auth()->id())->get();
         return view('orders.all',['orders'=>$orders]);
 
     }
@@ -29,7 +31,8 @@ class OrderController extends Controller
     public function create()
     {
         //
-        return view('orders.create');
+        $friends_user =  Friend::where('user_id',auth()->id())->get();
+        return view('orders.create',['friends_user'=>$friends_user]);
     }
 
     /**
@@ -42,6 +45,7 @@ class OrderController extends Controller
     {
         //
         // dd($request->all());
+
         $request->validate([
 
             'order_for' => 'required',
@@ -53,9 +57,27 @@ class OrderController extends Controller
              $imagename=uploadImage($request->file('menu_image'),'orders');
              $order->menu_image = $imagename;
         }
+        $order->user_id =auth()->id();
+        $order->invites_count = count($request->invite_friends);
         $order->order_for =$request->order_for;
         $order->restaurant_name = $request->restaurant_name;
         $order->save();
+        $friends_invites = [];
+
+
+            foreach( $request->invite_friends as $k => $v ) {
+                $data = collect([
+                    'friend_id' => $request['invite_friends'][$k],
+                    'order_id' => $order->id,
+
+                ]);
+                $friends_invites[] = $data->toArray();
+
+            }
+
+            FriendOrder::insert( $friends_invites );
+
+
         return redirect()->route('orders.index')->with('success', 'Your Post has been added successfully!');
     }
 
