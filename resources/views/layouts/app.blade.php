@@ -128,20 +128,12 @@
                     <!-- Notifications -->
                     <div class="dropdown">
                         <a class="text-reset me-3 dropdown-toggle hidden-arrow" href="#"
-                            id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                            id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <i class="fas fa-bell"></i>
-                            <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                            <span class="badge rounded-pill badge-notification bg-danger" id="nots_count"></span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" href="#">Some news</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Another news</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </li>
+                        <ul class="dropdown-menu dropdown-menu-end" id="nots" aria-labelledby="navbarDropdownMenuLink">
+                            
                         </ul>
                     </div>
                     <!-- Avatar -->
@@ -190,6 +182,28 @@
         </main>
     </div>
     <script src="{{ asset('jquery/jquery-3.5.1.js') }}"></script>
+    <script>
+    
+    let ul = document.querySelector('#nots'); 
+    fetch('/notifications')
+        .then(res => res.json())
+        .then(res => {
+            document.querySelector('#nots_count').textContent = res.length;
+            if(res.length == 0){
+                ul.innerHtml = '<p>There is no any invitation</p>';
+            }else{
+                for (let i=0; i<res.length; i++) {
+                    addListItem(res[i].sender.name)               
+                }
+            }
+        })
+
+        function addListItem(sender){
+            let li = document.createElement('li');
+            li.innerHTML = `<a class="dropdown-item"><b class="text-danger">${sender}</b> has invited you to eat together</a>`;
+            ul.appendChild(li);
+        }
+    </script>
 </body>
 
 </html>

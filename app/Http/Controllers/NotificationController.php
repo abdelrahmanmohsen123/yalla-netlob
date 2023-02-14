@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Notifications\OffersNotification;
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Auth;
+
+// use Illuminate\Support\Facades\Notification;
 
 class NotificationController extends Controller
 {
@@ -13,20 +16,25 @@ class NotificationController extends Controller
     {
         $this->middleware('auth');
     }
-    public function sendOfferNotification() {
-        $userSchema = User::first();
 
-        $offerData = [
-            'name' => 'BOGO',
-            'body' => 'You received an offer.',
-            'thanks' => 'Thank you',
-            'offerText' => 'Check out the offer',
-            'offerUrl' => url('/'),
-            'offer_id' => 007
-        ];
+    public function addNotifaction($sender_id,$receiver_id){
+        
+        $sender = User::find($sender_id);
+        $receiver = User::find($receiver_id);
+        
+        $notify = new Notification();
+        $notify->message = "";
+        $notify->status = false;
+        $notify->sender_id = $sender_id;
+        $notify->receiver_id = $receiver_id;
+        $notify->save();
 
-        Notification::send($userSchema, new OffersNotification($offerData));
+    }
 
-        dd('Task completed!');
+    public function getAll()
+    {
+        $all = Notification::where('receiver_id',Auth::user()->id)->where('status',false)->with('sender')->get();
+        // dd($all);
+        return $all;
     }
 }

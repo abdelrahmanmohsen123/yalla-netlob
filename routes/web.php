@@ -49,6 +49,5 @@ Route::resource('orderdetails', OrderdetailController::class);
 
 
 
-
-//send notification
-// Route::get('/send-notification', [NotificationController::class, 'sendOfferNotification']);
+// Notification
+Route::get('/notifications', [NotificationController::class, 'getAll'])->name('notifys.all');
