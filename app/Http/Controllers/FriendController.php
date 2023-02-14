@@ -99,6 +99,7 @@ class FriendController extends Controller
      */
     public function destroy(Friend $friend)
     {
-        //
+        $friend->delete();
+        return redirect()->route('friends.index')->with('success_delete_friend', 'the Friend has been deleted successfully!');
     }
 }

@@ -16,4 +16,9 @@ class Friend extends Model
     {
         return $this->belongsTo(Groub::class);
     }
+
+    public function groubs()
+    {
+        return $this->belongsToMany(Groub::class);
+    }
 }

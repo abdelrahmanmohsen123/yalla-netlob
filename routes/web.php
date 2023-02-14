@@ -46,6 +46,8 @@ Route::resource('orders', OrderController::class)->middleware('auth');
 Route::resource('orderdetails', OrderdetailController::class)->middleware('auth');
 
 
+Route::delete('deleteFrientoGroub', [GroubController::class, 'deleteFrientoGroub'])->name('friends_groub.destroy');
+
 
 
 //send notification

@@ -16,4 +16,9 @@ class Groub extends Model
     {
         return $this->hasMany(Friend::class);
     }
+
+    public function friends()
+    {
+        return $this->belongsToMany(Friend::class,'groub_friends','friend_id', 'groub_id');
+    }
 }

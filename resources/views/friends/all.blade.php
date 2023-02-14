@@ -66,6 +66,14 @@
                     @if (session('fail'))
                         toastr()->error('Oops! Something went wrong!');
                     @endif
+
+                    @if (session('success_delete_friend'))
+                    <div class="col-sm-12 text-center">
+                            <div class="alert  alert-success alert-dismissible fade show" role="alert">
+                                {{ session('success_delete_friend') }}
+                            </div>
+                        </div>
+                    @endif
                     {{-- <ul class="list-group list-group-flush"> --}}
                     <div class="container my-4 row row-cols-auto mx-auto justify-content-center ">
                         @if ($friends != null)
@@ -78,21 +86,28 @@
                                             </div>
                                             <p class="lead m-0 ">{{ $friend->name }}</p>
                                         </div>
-                                        <button type="button"
+                                        {{-- <button type="button"
                                             class=" btn btn-outline-danger border-0  fw-bold rounded-pill "
                                             name="add_user_to_groub">
                                             <i class="fa-solid fa-user-minus"></i>
-                                        </button>
+                                        </button> --}}
+                                        <form action="{{ route('friends.destroy', $friend->id) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-outline-danger border-0 rounded-pill"
+                                            id="delete_Friend" type="submit"><i class="fa-solid fa-user-minus"></i></button>
+
+                                        </form>
                                     </div>
                                 </div>
                             @endforeach
                         @else
-                            <li class="list-group-item alert alert-danger">Ther is no Groub</li>
+                            <li class="list-group-item alert alert-danger">Ther is no Friends</li>
                         @endif
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            {{-- <div class="col-6">
                 <div class="row">
                     <div class="col-12">
                         all users
@@ -116,7 +131,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         {{-- paginate --}}
