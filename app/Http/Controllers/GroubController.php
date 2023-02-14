@@ -82,7 +82,7 @@ class GroubController extends Controller
         //     }
             // dd($friendsInGroub2);
         $groubs = Groub::all();
-        $friends = Friend::where('groub_id','!=',$groub->id )->distinct()->get();
+        $friends = Friend::distinct()->get();
 
         // dd($friends);
         // $friendsInGroub = GroubFriend::where('groub_id','=',$groub->id )->get();

@@ -59,3 +59,4 @@ class Subscribe extends Mailable
         return [];
     }
 }
+

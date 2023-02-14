@@ -52,7 +52,7 @@ class FriendController extends Controller
 
         if ($subscriber) {
             Mail::to($email)->send(new Subscribe($email));
-            return redirect()->route('friends.index')->with('success', 'Your Friend has been added successfully!');
+            return to_route('friends.index')->with('success', 'Your Friend has been added successfully!');
         }
     }
 

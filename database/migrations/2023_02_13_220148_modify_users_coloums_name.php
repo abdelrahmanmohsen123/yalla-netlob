@@ -14,13 +14,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('User', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
-
-            DB::statement('ALTER TABLE `users` MODIFY `password` TEXT NULL;');
-            DB::statement('ALTER TABLE `users` MODIFY `token` TEXT NULL;');
-            DB::statement('ALTER TABLE `users` RENAME COLUMN `remember_token` TO `token`;');
-            DB::statement('ALTER TABLE `users` RENAME COLUMN `google_id` TO `logged_with_id`;');
+            $table->text('password')->change()->nullable();
+            $table->longText('token')->change()->nullable();
+            $table->renameColumn('remember_token', 'token');
+            $table->renameColumn('google_id', 'logged_with_id');
+            // DB::statement('ALTER TABLE `users` MODIFY `password` TEXT NULL;');
+            // DB::statement('ALTER TABLE `users` MODIFY `token` TEXT NULL;');
+            // DB::statement('ALTER TABLE `users` RENAME COLUMN `remember_token` TO `token`;');
+            // DB::statement('ALTER TABLE `users` RENAME COLUMN `google_id` TO `logged_with_id`;');
 
         });
     }
@@ -32,7 +35,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('User', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
         });
     }

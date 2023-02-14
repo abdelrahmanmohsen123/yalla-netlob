@@ -54,7 +54,7 @@
 
                 <div class="card bg-white p-2 rounded-0 shadow border-0 group-card ">
                     @if (session('success_delete_user'))
-                    <div class="col-sm-12 text-center">
+                        <div class="col-sm-12 text-center">
                             <div class="alert  alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success_delete_user') }}
                             </div>
@@ -77,19 +77,21 @@
                                             <div class="row">
                                                 <div class="col-3">
                                                     <a class="btn btn-outline-primary border-0 rounded-pill"
-                                                    href="{{ route('groubs.show', $groubb->id) }}" id="add_user"><i
-                                                        class="fa-solid fa-user-plus"></i></a>
+                                                        href="{{ route('groubs.show', $groubb->id) }}" id="add_user"><i
+                                                            class="fa-solid fa-user-plus"></i></a>
                                                 </div>
 
 
-                                        {{-- </td>
+                                                {{-- </td>
                                         <td> --}}
                                                 <div class="col-3">
-                                                    <form action="{{ route('groubs.destroy', $groubb->id) }}" method="post">
+                                                    <form action="{{ route('groubs.destroy', $groubb->id) }}"
+                                                        method="post">
                                                         @csrf
                                                         @method('delete')
                                                         <button class="btn btn-outline-danger border-0 rounded-pill"
-                                                        id="add_user" type="submit"><i class="fa-solid fa-user-minus"></i></button>
+                                                            id="add_user" type="submit"><i
+                                                                class="fa-solid fa-user-minus"></i></button>
 
                                                     </form>
                                                 </div>
@@ -98,7 +100,7 @@
                                     </tr>
                                 @endforeach
                             @else
-                                <li class="list-group-item alert alert-danger">Ther is no Groub</li>
+                                <li class="list-group-item alert alert-danger">There's no Group</li>
                             @endif
                         </tbody>
                     </table>
@@ -116,7 +118,7 @@
                 <div class="col-md-12 col-lg-6 mt-2">
                     <h5 class="m-2">Groub Name : {{ $groub->name }}</h5>
                     @if (session('success_add_user'))
-                    <div class="col-sm-12 text-center">
+                        <div class="col-sm-12 text-center">
                             <div class="alert  alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success_add_user') }}
                             </div>
@@ -130,8 +132,8 @@
                                 <input type="hidden" value="{{ $groub->id }}" name="groub_id">
                                 <div class="row my-3">
                                     <div class="d-flex ">
-                                        <select class="form-select w-75 me-2 rounded-0 " name="friend_id"
-                                            aria-label="Default select example">
+                                        <select class="form-select w-75 me-2 rounded-0" onchange="addMeFunction(this)"
+                                            name="friend_id">
                                             <option selected disabled>select your friend name</option>
                                             @foreach ($friends as $friend)
                                                 <option value="{{ $friend->id }}">{{ $friend->name }}</option>
@@ -148,14 +150,14 @@
                         @isset($friendsInGroub)
 
                             @if (session('success_delete_user_from groub'))
-                            <div class="col-sm-12 text-center">
+                                <div class="col-sm-12 text-center">
                                     <div class="alert  alert-success alert-dismissible fade show" role="alert">
                                         {{ session('success_delete_user_from groub') }}
                                     </div>
                                 </div>
                             @endif
 
-                            <div class="row ">
+                            <div class="row" id="appendUser">
                                 @forelse ($friendsInGroub as $friendIn)
                                     <div class="col-6 my-2 d-flex hover-overlay ripple shadow-1-strong">
                                         <div class="circle-rounded">
@@ -167,23 +169,24 @@
                                             <form action="{{ route('friends_groub.destroy') }}" method="post">
                                                 @csrf
                                                 @method('delete')
-                                                <input type="hidden" name="groub_id" value="{{$groub->id}}">
-                                                <input type="hidden" name="friend_id" value="{{$friendIn->id}}">
-                                                <button type="submit" class=" btn btn-outline-danger border-0  fw-bold rounded-pill "
-                                                name="add_user_to_groub">
-                                                <i class="fa-solid fa-user-minus"></i>
+                                                <input type="hidden" name="groub_id" value="{{ $groub->id }}">
+                                                <input type="hidden" name="friend_id" value="{{ $friendIn->id }}">
+                                                <button type="submit"
+                                                    class=" btn btn-outline-danger border-0  fw-bold rounded-pill "
+                                                    name="add_user_to_groub">
+                                                    <i class="fa-solid fa-user-minus"></i>
                                                 </button>
 
                                             </form>
                                         </div>
                                     </div>
-                                    @empty
+                                @empty
                                     <div class="col-sm-12 text-center">
                                         <div class="alert  alert-danger alert-dismissible fade show" role="alert">
                                             There is no Friends , You Can Add friends
                                         </div>
                                     </div>
-                                    @endforelse
+                                @endforelse
                             </div>
                         @endisset
                     </div>
@@ -200,3 +203,38 @@
         </div> --}}
     </div>
 @endsection
+
+
+<script>
+    function addMeFunction(e) {
+        let option = e.options[e.selectedIndex];
+        // console.log(option);
+        let selected = e.options.selectedIndex;
+        // console.log(selected);
+
+        let appendUser = document.getElementById("appendUser");
+        appendUser.innerHTML += `<div class="col-6 my-2 d-flex hover-overlay ripple shadow-1-strong">
+                                        <div class="circle-rounded">
+                                            <img src="{{ asset('images/default.jpg') }}" width="50px" alt="">
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between w-100">
+                                            <p class="lead m-0 ">${option.innerHTML}</p>
+
+                                            <form action="{{ route('friends_groub.destroy') }}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="hidden" name="groub_id" value="{{ $groub->id }}">
+                                                <input type="hidden" name="friend_id" value="${e.value}">
+                                                <button type="submit"
+                                                    class=" btn btn-outline-danger border-0  fw-bold rounded-pill "
+                                                    name="add_user_to_groub">
+                                                    <i class="fa-solid fa-user-minus"></i>
+                                                </button>
+
+                                            </form>
+                                        </div>
+                                    </div>`;
+        e.remove(selected);
+        e.setSelectedIndex = 0;
+    }
+</script>
