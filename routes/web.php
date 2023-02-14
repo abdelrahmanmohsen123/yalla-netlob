@@ -37,7 +37,6 @@ Route::get('login/{provider}', [LoginController::class, 'redirectToProvider']);
 Route::get('login/google/callback', [LoginController::class, 'handleProviderCallback']);
 
 Auth::routes();
-
 Route::get('', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('groubs', GroubController::class)->middleware('auth');
