@@ -80,9 +80,14 @@
             align-items: center;
 
         }
-
+        @media only screen and (max-width: 800px) {
+        .gif{
+            display:none;
+        }
+    }
         /* .mt-100{margin-top: 100px}body{background: #00B4DB;background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);background: linear-gradient(to right, #0083B0, #00B4DB);color: #514B64;min-height: 100vh} */
     </style>
+
     @stack('css')
     @stack('styles')
     <!-- Scripts -->
@@ -90,71 +95,16 @@
 </head>
 
 <body class="bg-white" >
-    <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm ">
-            <!-- Container wrapper -->
-            <div class="container-fluid">
-                <!-- Toggle button -->
-                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                    data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
+    <div id="app" class="container">
+        <div class="row">
 
-                <!-- Collapsible wrapper -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Navbar brand -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{-- {{ config('app.name', 'Laravel') }} --}}
-                        {{-- Yalla !lob --}}
-                        <img src="/images/Yalla Notlop.png" width="100" height="80   " />
-                    </a>
-                    <!-- Left links -->
-
-                    <!-- Avatar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-                <!-- Right elements -->
+            <main class="py-5 col-sm-12 col-md-6 m-auto ">
+                @yield('content')
+            </main>
+            <div class="py-4 col-6 gif ">
+                <img src="/images/Yalla Notlop.gif" alt="" />
             </div>
-            <!-- Container wrapper -->
-        </nav>
-        <main class="py-4 ">
-            @yield('content')
-        </main>
+        </div>
     </div>
     <script src="{{ asset('jquery/jquery-3.5.1.js') }}"></script>
 </body>
