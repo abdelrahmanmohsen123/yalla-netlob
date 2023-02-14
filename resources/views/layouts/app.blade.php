@@ -30,6 +30,8 @@
             font-family: 'Cairo', sans-serif !important;
             box-sizing: border-box;
             margin: 0;
+            /* background-color: #f5efd7 !important; */
+            background-image: url("/images/Yalla Notlop (1).png") !important;
         }
 
         .logo {
@@ -78,8 +80,8 @@
             align-items: center;
 
         }
-        /* .mt-100{margin-top: 100px}body{background: #00B4DB;background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);background: linear-gradient(to right, #0083B0, #00B4DB);color: #514B64;min-height: 100vh} */
 
+        /* .mt-100{margin-top: 100px}body{background: #00B4DB;background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);background: linear-gradient(to right, #0083B0, #00B4DB);color: #514B64;min-height: 100vh} */
     </style>
     @stack('css')
     @stack('styles')
@@ -87,7 +89,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body class="bg-white">
+<body class="bg-white" >
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm ">
             <!-- Container wrapper -->
@@ -102,9 +104,10 @@
                 <!-- Collapsible wrapper -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Navbar brand -->
-                    <a class="navbar-brand logo" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ url('/') }}">
                         {{-- {{ config('app.name', 'Laravel') }} --}}
-                        Yalla !lob
+                        {{-- Yalla !lob --}}
+                        <img src="/images/Yalla Notlop.png" width="100" height="80   " />
                     </a>
                     <!-- Left links -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">

@@ -7,7 +7,9 @@
                 <div class="card">
                     {{-- <div class="card-header">{{ __('Login') }}</div> --}}
                     <div class="card-header text-center">
-                        <h3 class="my-3"> Yalla Netlob</h3>
+                       <h3 class="my-3"> Yalla Netlob</h3>
+
+                        {{-- <img class="card-img-top" src="images/Yalla Wide.png"/> --}}
                     </div>
 
 
