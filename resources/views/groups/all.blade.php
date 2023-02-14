@@ -51,7 +51,15 @@
         <div class="row ">
             <div class="col-md-12 col-lg-6 mt-2">
                 <h5 class="text-muted m-2">My Groups</h5>
+
                 <div class="card bg-white p-2 rounded-0 shadow border-0 group-card ">
+                    @if (session('success_delete_user'))
+                    <div class="col-sm-12 text-center">
+                            <div class="alert  alert-success alert-dismissible fade show" role="alert">
+                                {{ session('success_delete_user') }}
+                            </div>
+                        </div>
+                    @endif
                     <table class="table table-hover table-borderless">
                         <thead class="bg-danger text-light">
                             <tr>
@@ -66,13 +74,26 @@
                                     <tr>
                                         <th scope="row">{{ $groubb->name }}</th>
                                         <td>
-                                            <a class="btn btn-outline-primary border-0 rounded-pill"
-                                                href="{{ route('groubs.show', $groubb->id) }}" id="add_user"><i
-                                                    class="fa-solid fa-user-plus"></i></a>
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <a class="btn btn-outline-primary border-0 rounded-pill"
+                                                    href="{{ route('groubs.show', $groubb->id) }}" id="add_user"><i
+                                                        class="fa-solid fa-user-plus"></i></a>
+                                                </div>
+
+
                                         {{-- </td>
                                         <td> --}}
-                                            <a class="btn btn-outline-danger border-0 rounded-pill" href=""
-                                                id="add_user"><i class="fa-solid fa-user-minus"></i></a>
+                                                <div class="col-3">
+                                                    <form action="{{ route('groubs.destroy', $groubb->id) }}" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button class="btn btn-outline-danger border-0 rounded-pill"
+                                                        id="add_user" type="submit"><i class="fa-solid fa-user-minus"></i></button>
+
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -125,21 +146,44 @@
                             </form>
                         @endisset
                         @isset($friendsInGroub)
+
+                            @if (session('success_delete_user_from groub'))
+                            <div class="col-sm-12 text-center">
+                                    <div class="alert  alert-success alert-dismissible fade show" role="alert">
+                                        {{ session('success_delete_user_from groub') }}
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="row ">
-                                @foreach ($friendsInGroub as $friendIn)
+                                @forelse ($friendsInGroub as $friendIn)
                                     <div class="col-6 my-2 d-flex hover-overlay ripple shadow-1-strong">
                                         <div class="circle-rounded">
                                             <img src="{{ asset('images/default.jpg') }}" width="50px" alt="">
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between w-100">
                                             <p class="lead m-0 ">{{ $friendIn->name }}</p>
-                                            <button type="button" class=" btn btn-outline-danger border-0  fw-bold rounded-pill "
+
+                                            <form action="{{ route('friends_groub.destroy') }}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="hidden" name="groub_id" value="{{$groub->id}}">
+                                                <input type="hidden" name="friend_id" value="{{$friendIn->id}}">
+                                                <button type="submit" class=" btn btn-outline-danger border-0  fw-bold rounded-pill "
                                                 name="add_user_to_groub">
                                                 <i class="fa-solid fa-user-minus"></i>
-                                            </button>
+                                                </button>
+
+                                            </form>
                                         </div>
                                     </div>
-                                @endforeach
+                                    @empty
+                                    <div class="col-sm-12 text-center">
+                                        <div class="alert  alert-danger alert-dismissible fade show" role="alert">
+                                            There is no Friends , You Can Add friends
+                                        </div>
+                                    </div>
+                                    @endforelse
                             </div>
                         @endisset
                     </div>

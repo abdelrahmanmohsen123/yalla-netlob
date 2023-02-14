@@ -48,6 +48,8 @@ Route::resource('orders', OrderController::class);
 Route::resource('orderdetails', OrderdetailController::class);
 
 
+Route::delete('deleteFrientoGroub', [GroubController::class, 'deleteFrientoGroub'])->name('friends_groub.destroy');
+
 
 
 //send notification

@@ -46,7 +46,7 @@ class FriendController extends Controller
     Friend::create($request->all());
     return redirect()->route('friends.index')->with('success', 'Your Friend has been added successfully!');
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -90,6 +90,7 @@ class FriendController extends Controller
      */
     public function destroy(Friend $friend)
     {
-        //
+        $friend->delete();
+        return redirect()->route('friends.index')->with('success_delete_friend', 'the Friend has been deleted successfully!');
     }
 }

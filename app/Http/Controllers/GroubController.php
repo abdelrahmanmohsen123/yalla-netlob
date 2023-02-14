@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Friend;
 use App\Models\Groub;
+use App\Models\Friend;
+use App\Models\GroubFriend;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GroubController extends Controller
 {
@@ -58,10 +60,44 @@ class GroubController extends Controller
      */
     public function show(Groub $groub)
     {
+        $friendsInGroub = DB::table('groub_friends')
+            ->join('groubs', 'groub_friends.groub_id', '=', 'groubs.id')
+            ->join('friends', 'groub_friends.friend_id', '=', 'friends.id')
+            ->where('groub_friends.groub_id',$groub->id)
+            ->select('friends.*')
+            ->get();
+
+
+
+        // $friends = DB::table('groub_friends')
+        //     ->join('groubs', 'groub_friends.groub_id', '=', 'groubs.id')
+        //     ->join('friends', 'groub_friends.friend_id', '=', 'friends.id')
+        //     ->where('groub_friends.groub_id','!=',$groub->id)
+
+        //     ->select('friends.*')
+        //     ->get();
+
+        //     if(empty($friends) ){
+        //           $friends = Friend::where('groub_id','!=',$groub->id )->get();
+        //     }
+            // dd($friendsInGroub2);
         $groubs = Groub::all();
-        // $friends = Friend::where('groub_id','!=',$groub->id )->get();
-        $friends = Friend::where('groub_id','!=',$groub->id )->get();
-        $friendsInGroub = Friend::where('groub_id','=',$groub->id )->get();
+        $friends = Friend::where('groub_id','!=',$groub->id )->distinct()->get();
+
+        // dd($friends);
+        // $friendsInGroub = GroubFriend::where('groub_id','=',$groub->id )->get();
+        // $friendsInGroub2 =[];
+        // for ($i=0; $i < count($friendsInGroub); $i++) {
+        //     foreach($friendsInGroub as $x){
+        //         $friendsInGroub2[$i] = Friend::where('id','=',$x->friend_id )->get();
+        //     }
+        //     # code...
+        //     // $data = Friend::where('id','=',$x->friend_id )->get();
+        // }
+
+
+
+
         return view('groups.all',['groubs'=>$groubs,'groub'=>$groub,'friendsInGroub'=>$friendsInGroub,'friends'=>$friends]);
     }
     public function addFrientoGroub(Request $request){
@@ -70,11 +106,23 @@ class GroubController extends Controller
             'groub_id' => 'required',
             'friend_id' => 'required',
         ]);
-        $friend = Friend::find($request->friend_id);
-        $friend->groub_id = $request->groub_id;
-        $friend->save();
+         GroubFriend::create($request->all());
+
         return redirect()->back()->with('success_add_user', 'Your Friend has been added successfully!');
     }
+
+    public function deleteFrientoGroub(Request $request){
+        //
+
+        $friend = GroubFriend::where('groub_id','=',$request->groub_id )
+                                ->where('friend_id','=',$request->friend_id )
+                                ->first();
+        $friend->delete();
+
+
+        return redirect()->back()->with('success_delete_user_from groub', ' Friend has been Delete from Groub successfully!');
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -108,5 +156,7 @@ class GroubController extends Controller
     public function destroy(Groub $groub)
     {
         //
+        $groub->delete();
+        return redirect()->route('groubs.index')->with('success_delete_user', 'the groub has been deleted successfully!');
     }
 }
