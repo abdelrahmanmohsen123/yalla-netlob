@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.Navbarforlogin')
 
 @section('content')
 <div class="container">
