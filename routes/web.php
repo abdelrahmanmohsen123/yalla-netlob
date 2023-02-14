@@ -6,9 +6,7 @@ use App\Http\Controllers\GroubController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\OrderdetailController;
-use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,8 +38,8 @@ Route::get('login/google/callback', [LoginController::class, 'handleProviderCall
 
 Auth::routes();
 
-Route::get('', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('groubs', GroubController::class)->middleware('auth');
 Route::post('addFrientoGroub', [GroubController::class, 'addFrientoGroub'])->name('addFrientoGroub')->middleware('auth');
 Route::resource('friends', FriendController::class)->middleware('auth');

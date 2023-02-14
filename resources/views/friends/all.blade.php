@@ -30,9 +30,15 @@
                                             <label for="exampleInputEmail1" class="form-label lead">
                                                 Friend</label>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-7">
                                             <input type="text" class="form-control" name="name">
-
+                                        </div>
+                                        <div class="col-4 text-center">
+                                            <label class="form-label lead">
+                                                His Email</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <input type="email" class="form-control" name="email">
                                         </div>
                                         <div class="modal-footer my-3">
                                             <button type="submit" class="btn btn-primary">Add</button>

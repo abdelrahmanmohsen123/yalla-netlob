@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Friend extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $fillable = ['name'];
+    protected $fillable = ['name','email'];
 
     public function Groub()
     {
