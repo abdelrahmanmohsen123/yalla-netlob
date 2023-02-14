@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Friend;
 use Illuminate\Http\Request;
+use App\Mail\Subscribe;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
+
 
 class FriendController extends Controller
 {
@@ -16,7 +20,7 @@ class FriendController extends Controller
     {
         //
         $friends = Friend::all();
-        return view('friends.all',['friends'=>$friends]);
+        return view('friends.all', ['friends' => $friends]);
     }
 
     /**
@@ -39,12 +43,17 @@ class FriendController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:groubs|max:100',
+            'email' => 'required|email|unique:friends',
         ]);
 
-    // dd($request->all());
+        // dd($request->all());
+        $email = $request->all()['email'];
+        $subscriber =  Friend::create($request->all());
 
-    Friend::create($request->all());
-    return redirect()->route('friends.index')->with('success', 'Your Friend has been added successfully!');
+        if ($subscriber) {
+            Mail::to($email)->send(new Subscribe($email));
+            return redirect()->route('friends.index')->with('success', 'Your Friend has been added successfully!');
+        }
     }
 
 

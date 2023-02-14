@@ -32,9 +32,9 @@ return [
     ],
 
     'google' => [
-        'client_id' => env('481168486471-of31vp44as2phtse72pd8crh9uo9dt9v.apps.googleusercontent.com'),
-        'client_secret' => env('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'),
-        'redirect' => env('http://127.0.0.1:8000/login/google/callback'),
+        'client_id' => '78561288835-rongvv7fa4jququqhkt80ucr1gt218fd.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'http://127.0.0.1:8000/login/google/callback',
     ],
 
 ];
