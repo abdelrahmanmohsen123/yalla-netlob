@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('friends', function (Blueprint $table) {
+        Schema::table('orders', function (Blueprint $table) {
             //
-            $table->string('email',100)->unique();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')
+              ->references('id')->on('users')->onDelete('cascade');
+            $table->integer('invites_count')->nullable();
         });
     }
 
@@ -26,9 +29,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('friends', function (Blueprint $table) {
+        Schema::table('orders', function (Blueprint $table) {
             //
-            $table->dropColumn('email');
         });
     }
 };

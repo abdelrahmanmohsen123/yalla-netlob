@@ -204,7 +204,7 @@
     </div>
 @endsection
 
-
+{{--
 <script>
     function addMeFunction(e) {
         let option = e.options[e.selectedIndex];
@@ -223,7 +223,7 @@
                                             <form action="{{ route('friends_groub.destroy') }}" method="post">
                                                 @csrf
                                                 @method('delete')
-                                                <input type="hidden" name="groub_id" value="{{ $groub->id }}">
+                                           <input type="hidden" name="groub_id" value="{{ $groub->id }}">
                                                 <input type="hidden" name="friend_id" value="${e.value}">
                                                 <button type="submit"
                                                     class=" btn btn-outline-danger border-0  fw-bold rounded-pill "
@@ -237,4 +237,4 @@
         e.remove(selected);
         e.setSelectedIndex = 0;
     }
-</script>
+</script> --}}

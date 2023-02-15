@@ -19,7 +19,8 @@ class FriendController extends Controller
     public function index()
     {
         //
-        $friends = Friend::all();
+        $id_user = auth()->user()->id;
+        $friends = Friend::where('user_id',$id_user)->get();
         return view('friends.all', ['friends' => $friends]);
     }
 
@@ -43,16 +44,26 @@ class FriendController extends Controller
     {
         
         $request->validate([
-            'name' => 'required|unique:groubs|max:100',
+            'name' => 'required|max:100',
             'email' => 'required|email|unique:friends',
         ]);
 
         // dd($request->all());
         $email = $request->all()['email'];
+<<<<<<< HEAD
 
         $subscriber =  Friend::create($request->all());
+=======
+        // array_push($request->all(),['user_id'=>auth()->id]);
+        // $subscriber =  Friend::create($request->all());
+        $new_friend = new Friend();
+        $new_friend->name = $request->name;
+        $new_friend->email = $request->email;
+        $new_friend->user_id = auth()->id();
+        $new_friend->save();
+>>>>>>> db8647249575ee095c456e77d4693352712ee52d
 
-        if ($subscriber) {
+        if ($new_friend) {
             Mail::to($email)->send(new Subscribe($email));
             return to_route('friends.index')->with('success', 'Your Friend has been added successfully!');
         }
