@@ -37,4 +37,9 @@ class NotificationController extends Controller
         // dd($all);
         return $all;
     }
+
+    public function changeSeen($id){
+        Notification::where('receiver_id',Auth::user()->id)->update(['status'=>true]);
+        return true;
+    }
 }

@@ -52,6 +52,7 @@ Route::delete('deleteFrientoGroub', [GroubController::class, 'deleteFrientoGroub
 
 // Notification
 Route::get('/notifications', [NotificationController::class, 'getAll'])->name('notifys.all');
+Route::get('/notifyseen/{id}', [NotificationController::class, 'changeSeen']);
 
 //send notification
 // Route::get('/send-notification', [NotificationController::class, 'sendOfferNotification']);

@@ -60,15 +60,26 @@
     <div class="container my-5">
         <div class="row">
             <div class="col-12">
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="bg-danger text-white p-1 m-2">
+                            {{$error}}
+                        </div>
+                    @endforeach
+                @endif
                 <div class="card" style="width: 100%">
                     <div class="card-header">
                         All Friends
                     </div>
+
                     @if (session('success'))
-                        toastr()->success( {{ session('success') }}, 'Congrats', ['timeOut' => 2500]);
+                        {{-- toastr()->success( {{ session('success') }}, 'Congrats', ['timeOut' => 2500]); --}}
+                        <div class="bg-success text-white">
+                            toastr()->success("{{ session('success')}}", 'Congrats', ['timeOut' => 2500] );
+                        </div>
                     @endif
-                    @if (session('fail'))
-                        toastr()->error('Oops! Something went wrong!');
+                    @if (session('error'))
+                        toastr()->error(" {{session('error')}} ", , ['timeOut'=> 2500]);
                     @endif
 
                     @if (session('success_delete_friend'))
@@ -116,3 +127,14 @@
         </div>
     </div>
 @endsection
+
+<script>
+    $(document).ready(function() {
+        toastr.options.timeOut = 2500;
+        @if (Session::has('error'))
+            toastr.error("{{ session('error') }}");
+        @elseif(Session::has('success'))
+            toastr.success("{{ session('success') }}");
+        @endif
+    });
+</script>
