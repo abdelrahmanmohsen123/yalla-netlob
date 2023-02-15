@@ -30,6 +30,8 @@
             font-family: 'Cairo', sans-serif !important;
             box-sizing: border-box;
             margin: 0;
+            /* background-color: #f5efd7 !important; */
+            background-image: url("/images/Yalla Notlop (1).png") !important;
         }
 
         .logo {
@@ -78,16 +80,18 @@
             align-items: center;
 
         }
-        /* .mt-100{margin-top: 100px}body{background: #00B4DB;background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);background: linear-gradient(to right, #0083B0, #00B4DB);color: #514B64;min-height: 100vh} */
 
+        /* .mt-100{margin-top: 100px}body{background: #00B4DB;background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);background: linear-gradient(to right, #0083B0, #00B4DB);color: #514B64;min-height: 100vh} */
     </style>
     @stack('css')
     @stack('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body class="bg-white">
+<body class="bg-white" >
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm ">
             <!-- Container wrapper -->
@@ -102,9 +106,10 @@
                 <!-- Collapsible wrapper -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Navbar brand -->
-                    <a class="navbar-brand logo" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ url('/') }}">
                         {{-- {{ config('app.name', 'Laravel') }} --}}
-                        Yalla !lob
+                        {{-- Yalla !lob --}}
+                        <img src="/images/Yalla Notlop.png" width="100" height="80   " />
                     </a>
                     <!-- Left links -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -181,13 +186,19 @@
             @yield('content')
         </main>
     </div>
+
+    @yield('script')
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{ asset('jquery/jquery-3.5.1.js') }}"></script>
     <script>
-    
     let ul = document.querySelector('#nots'); 
+
     fetch('/notifications')
         .then(res => res.json())
         .then(res => {
+            console.log(res);
             document.querySelector('#nots_count').textContent = res.length;
             if(res.length == 0){
                 ul.innerHtml = '<p>There is no any invitation</p>';
@@ -203,7 +214,12 @@
             li.innerHTML = `<a class="dropdown-item"><b class="text-danger">${sender}</b> has invited you to eat together</a>`;
             ul.appendChild(li);
         }
+
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
     </script>
+    
 </body>
 
 </html>

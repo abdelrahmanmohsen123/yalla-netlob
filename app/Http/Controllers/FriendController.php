@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Friend;
 use Illuminate\Http\Request;
+use App\Mail\Subscribe;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
+
 
 class FriendController extends Controller
 {
@@ -16,7 +20,7 @@ class FriendController extends Controller
     {
         //
         $friends = Friend::all();
-        return view('friends.all',['friends'=>$friends]);
+        return view('friends.all', ['friends' => $friends]);
     }
 
     /**
@@ -37,16 +41,24 @@ class FriendController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'name' => 'required|unique:groubs|max:100',
+            'email' => 'required|email|unique:friends',
         ]);
 
-    // dd($request->all());
+        // dd($request->all());
+        $email = $request->all()['email'];
 
-    Friend::create($request->all());
-    return redirect()->route('friends.index')->with('success', 'Your Friend has been added successfully!');
+        $subscriber =  Friend::create($request->all());
+
+        if ($subscriber) {
+            Mail::to($email)->send(new Subscribe($email));
+            return to_route('friends.index')->with('success', 'Your Friend has been added successfully!');
+        }
+
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -90,6 +102,7 @@ class FriendController extends Controller
      */
     public function destroy(Friend $friend)
     {
-        //
+        $friend->delete();
+        return redirect()->route('friends.index')->with('success_delete_friend', 'the Friend has been deleted successfully!');
     }
 }

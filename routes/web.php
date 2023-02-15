@@ -6,7 +6,6 @@ use App\Http\Controllers\GroubController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\OrderdetailController;
 use App\Http\Controllers\NotificationController;
 
@@ -21,7 +20,7 @@ use App\Http\Controllers\NotificationController;
 |
 */
 
-Route::get('/', function () {
+Route::get('', function () {
     return view('welcome');
 });
 
@@ -39,15 +38,20 @@ Route::get('login/{provider}', [LoginController::class, 'redirectToProvider']);
 Route::get('login/google/callback', [LoginController::class, 'handleProviderCallback']);
 
 Auth::routes();
-
+Route::get('', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('groubs', GroubController::class);
-Route::post('addFrientoGroub', [GroubController::class, 'addFrientoGroub'])->name('addFrientoGroub');
-Route::resource('friends', FriendController::class);
-Route::resource('orders', OrderController::class);
-Route::resource('orderdetails', OrderdetailController::class);
+Route::resource('groubs', GroubController::class)->middleware('auth');
+Route::post('addFrientoGroub', [GroubController::class, 'addFrientoGroub'])->name('addFrientoGroub')->middleware('auth');
+Route::resource('friends', FriendController::class)->middleware('auth');
+Route::resource('orders', OrderController::class)->middleware('auth');
+Route::resource('orderdetails', OrderdetailController::class)->middleware('auth');
 
+
+Route::delete('deleteFrientoGroub', [GroubController::class, 'deleteFrientoGroub'])->name('friends_groub.destroy');
 
 
 // Notification
 Route::get('/notifications', [NotificationController::class, 'getAll'])->name('notifys.all');
+
+//send notification
+// Route::get('/send-notification', [NotificationController::class, 'sendOfferNotification']);

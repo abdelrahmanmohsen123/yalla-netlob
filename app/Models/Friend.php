@@ -10,10 +10,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Friend extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $fillable = ['name'];
+    protected $fillable = ['name','email'];
 
     public function Groub()
     {
         return $this->belongsTo(Groub::class);
+    }
+
+    public function groubs()
+    {
+        return $this->belongsToMany(Groub::class);
     }
 }

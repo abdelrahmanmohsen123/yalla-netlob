@@ -13,14 +13,14 @@ Thanks,<br>
  --}}
 
 @component('mail::message')
-# Welcome to the first Newsletter
+# Welcome to our dining table
 
 Dear {{$email}},
 
-We look forward to communicating more with you. For more information visit our blog.
-
-@component('mail::button', ['url' => 'enter your desired url'])
-Blog
+You have been invited to have a meal with us.
+Come on, Don't be shy.
+@component('mail::button', ['url' => 'http://127.0.0.1:8000/orders'])
+Yalla !Lob 🍔
 @endcomponent
 
 Thanks,<br>

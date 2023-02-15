@@ -60,25 +60,14 @@ use Carbon\Carbon;
 
                     </div>
                     <div class="mb-3">
-                        <label for="Invite Friends">Invite Friends</label>
-                        <div class="row d-flex justify-content-center mt-100">
-                            <div class="col-md-6">
-                                <select id="choices-multiple-remove-button"  multiple>
-                                    <option value="HTML">HTML</option>
-                                    <option value="Jquery">Jquery</option>
-                                    <option value="CSS">CSS</option>
-                                    <option value="Bootstrap 3">Bootstrap 3</option>
-                                    <option value="Bootstrap 4">Bootstrap 4</option>
-                                    <option value="Java">Java</option>
-                                    <option value="Javascript">Javascript</option>
-                                    <option value="Angular">Angular</option>
-                                    <option value="Python">Python</option>
-                                    <option value="Hybris">Hybris</option>
-                                    <option value="SQL">SQL</option>
-                                    <option value="NOSQL">NOSQL</option>
-                                    <option value="NodeJS">NodeJS</option>
-                                </select>
-                             </div>
+                        <label for="Invite Friends">Invite Friends </label>
+                        <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+                            <option value="AL">Alabama</option>
+                              ...
+                            <option value="WY">Wyoming</option>
+                          </select>
+
+
                     </div>
 
                     <div class="mb-3 ">
@@ -115,6 +104,8 @@ use Carbon\Carbon;
 
 
         });
+
     </script>
     @endpush
 @endsection
+

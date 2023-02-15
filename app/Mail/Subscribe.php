@@ -45,7 +45,7 @@ class Subscribe extends Mailable
     public function build()
     {
         return $this
-            ->subject('Thank you for subscribing to our newsletter')
+            ->subject('Thank you for subscribing to, Yalla !Lob')
             ->markdown('emails.subscribers');
     }
 
@@ -59,3 +59,4 @@ class Subscribe extends Mailable
         return [];
     }
 }
+

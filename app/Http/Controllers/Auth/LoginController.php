@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\User;
 
 use App\Providers\RouteServiceProvider;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Contracts\Auth\Authenticatable;
 class LoginController extends Controller
 {
     /*
@@ -39,7 +39,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        // $this->middleware('guest')->except('logout');
     }
 
 
@@ -56,12 +56,25 @@ class LoginController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('google')->user();
-
+        $authUser = Socialite::driver('google')->user();
         // Use the user information to create or update your user model
+        $user = User::where("email", $authUser->email)->get();
+        //  dump($authUser,'<=Auth');
 
+        if (!$user->first()) {
+            # code...
+            $user = User::create([
+                'name' => $authUser->name,
+                'email' => $authUser->email,
+                'token' => $authUser->token,
+                'logged_with_id'=>$authUser->id
+            ]);
+            // dd($user,'<=IN created IF=>',$user->attributes);
+            Auth::login($user);
+        }
+        // dd(Auth::user() , ">>>",User::where("email", $authUser->email)->get()->first());
         // Log the user in
-        Auth::login($user);
+        Auth::login($user->first());
 
         return redirect()->to('/home');
     }
