@@ -135,12 +135,14 @@
                     <!-- Notifications -->
                     <div class="dropdown">
                         <a class="text-reset me-3 dropdown-toggle hidden-arrow" href="#"
-                            id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" v-pre>
                             <i class="fas fa-bell"></i>
                             <span class="badge rounded-pill badge-notification bg-danger" id="nots_count"></span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" id="nots" aria-labelledby="navbarDropdownMenuLink">
-                            
+                        <ul class="dropdown-menu dropdown-menu-end" id="nots"
+                            aria-labelledby="navbarDropdownMenuLink">
+
                         </ul>
                     </div>
                     <!-- Avatar -->
@@ -190,43 +192,44 @@
     </div>
 
     @yield('script')
-    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script> --}}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="{{ asset('jquery/jquery-3.5.1.js') }}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
+
     <script>
-    let ul = document.querySelector('#nots'); 
+        let ul = document.querySelector('#nots');
 
-    fetch('/notifications')
-        .then(res => res.json())
-        .then(res => {
-            // console.log(res);
-            document.querySelector('#nots_count').textContent = res.length;
-            if(res.length == 0){
-                document.querySelector('#nots_count').textContent = '';
-                ul.innerHTML = '<small>There is no any invitation</small>';
-            }else{
-                for (let i=0; i<res.length; i++) {
-                    addListItem(res[i].sender.name)               
+        fetch('/notifications')
+            .then(res => res.json())
+            .then(res => {
+                // console.log(res);
+                document.querySelector('#nots_count').textContent = res.length;
+                if (res.length == 0) {
+                    document.querySelector('#nots_count').textContent = '';
+                    ul.innerHTML = '<small>There is no any invitation</small>';
+                } else {
+                    for (let i = 0; i < res.length; i++) {
+                        addListItem(res[i].sender.name)
+                    }
                 }
-            }
+            })
+        document.querySelector('#navbarDropdownMenuLink').addEventListener('click', () => {
+            fetch('/notifyseen/' + {{ auth()->id() }}).then(res => res.json()).then(res => document.querySelector(
+                '#nots_count').textContent = '')
         })
-        document.querySelector('#navbarDropdownMenuLink').addEventListener('click',()=>{
-            fetch('/notifyseen/'+{{auth()->id()}}).then(res => res.json()).then(res=> document.querySelector('#nots_count').textContent = '' )
-        })
-        function addListItem(sender){
+
+        function addListItem(sender) {
             let li = document.createElement('li');
-            li.innerHTML = `<a class="dropdown-item"><b class="text-danger">${sender}</b> has invited you to eat together</a>`;
+            li.innerHTML =
+                `<a class="dropdown-item"><b class="text-danger">${sender}</b> has invited you to eat together</a>`;
             ul.appendChild(li);
         }
 
         // $(document).ready(function() {
         //     $('.js-example-basic-multiple').select2();
         // });
-
-        
     </script>
-    
+    @yield('js')
 </body>
 
 </html>

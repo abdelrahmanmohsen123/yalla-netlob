@@ -71,8 +71,8 @@
                     <div class=" offser-md-3  form-group">
                         <h6 class="pt-2">Invite Friends</h6>
                         <select name="invite_friends[]" multiple='multiple' id="tags" class="tags form-control">
-                            @foreach ($friends_user as $friend_user )
-                                 <option value="{{$friend_user->id}}">{{$friend_user->name}}</option>
+                            @foreach ($friends_user as $friend_user)
+                                <option value="{{ $friend_user->id }}">{{ $friend_user->name }}</option>
                             @endforeach
 
 
@@ -96,8 +96,6 @@
             </div>
         </div> --}}
     </div>
-    @push('script')
-    @endpush
 @section('js')
     <script>
         $(document).ready(function() {
