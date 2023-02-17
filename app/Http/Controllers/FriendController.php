@@ -44,7 +44,7 @@ class FriendController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         // $request->validate([
         //     'name' => 'required|max:100',
         //     'email' => 'required|email|unique:friends',
@@ -61,7 +61,7 @@ class FriendController extends Controller
         }
         // echo 'not a friend';
         // return dd($friend);
-        
+
 
         if(!User::where('email',$email)->first()){
             Mail::to($email)->send(new Subscribe($email));
@@ -72,7 +72,7 @@ class FriendController extends Controller
         $new_friend->name = $request->name;
         $new_friend->email = $request->email;
         $new_friend->user_id = auth()->id();
-        
+
         if($new_friend->save())
         {
             Notification::create([
@@ -86,9 +86,9 @@ class FriendController extends Controller
             return to_route('friends.index')->with('error', 'error in saving friend');
         }
 
-        
 
-        // new friend 
+
+        // new friend
         // $subscriber =  Friend::create($request->all());
         // array_push($request->all(),['user_id'=>auth()->id]);
         // $subscriber =  Friend::create($request->all());

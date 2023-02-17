@@ -70,6 +70,64 @@ use Carbon\Carbon;
                     </tbody>
                   </table>
             </div>
+            <div class="col-4 ">
+                <div class="my-3 h4">
+                    {{-- <a href="" >
+                        {{$count_invite}} Friends invited click to view
+                     </a> --}}
+                     <a type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        {{$count_invite}} Friends invited click to view
+                     </a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Invited Friend</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        @foreach ($order->friends; as $friend_invit)
+
+
+                                        <div class="col-6">
+                                            <div class="d-flex align-items-center">
+                                                <div class="circle-rounded">
+                                                    <img src="{{ asset('images/default.jpg') }}" width="50px" alt="">
+                                                </div>
+                                                <p class="lead m-0 ">{{ $friend_invit->name }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <form action="{{ route('orders.delete.friend',$friend_invit->id) }}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button class="btn btn-outline-danger border-0 rounded-pill"
+                                                id="delete_Friend" type="submit"><i class="fa-solid fa-user-minus"></i></button>
+
+                                            </form>
+                                        </div>
+
+
+                                        @endforeach
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+
+                </div>
+
+
+
+            </div>
+
       </div>
       @if ($errors->any())
       <div class="col-sm-12 container mt-3"  >

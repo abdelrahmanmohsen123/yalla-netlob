@@ -45,7 +45,9 @@ Route::post('addFrientoGroub', [GroubController::class, 'addFrientoGroub'])->nam
 Route::resource('friends', FriendController::class)->middleware('auth');
 Route::resource('orders', OrderController::class)->middleware('auth');
 Route::resource('orderdetails', OrderdetailController::class)->middleware('auth');
+// delete frinds from invites order
 
+Route::delete('orders.delete.friend/{id}', [OrderdetailController::class, 'delete_friend_invite'])->name('orders.delete.friend');
 
 Route::delete('deleteFrientoGroub', [GroubController::class, 'deleteFrientoGroub'])->name('friends_groub.destroy');
 

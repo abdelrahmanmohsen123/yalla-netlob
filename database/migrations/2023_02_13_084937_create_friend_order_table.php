@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('friends_orders', function (Blueprint $table) {
+        Schema::create('friend_order', function (Blueprint $table) {
 
             $table->bigIncrements('id');
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('friend_id');
-         
+
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('friend_id')->references('id')->on('friends')->onDelete('cascade');
             $table->timestamps();
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('friends_orders');
+        Schema::dropIfExists('friend_order');
     }
 };
