@@ -49,6 +49,8 @@ Route::resource('orderdetails', OrderdetailController::class)->middleware('auth'
 Route::delete('deleteFrientoGroub', [GroubController::class, 'deleteFrientoGroub'])->name('friends_groub.destroy');
 
 
-
+Route::get('/info', function () {
+    return view('layouts.info');
+});
 //send notification
 // Route::get('/send-notification', [NotificationController::class, 'sendOfferNotification']);
