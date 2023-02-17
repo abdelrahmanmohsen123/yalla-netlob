@@ -40,7 +40,7 @@ use Carbon\Carbon;
                         <th scope="col">Restaurant</th>
                         <th scope="col">Invited</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        <th scope="col text-center">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -52,9 +52,26 @@ use Carbon\Carbon;
                             <td>{{  $order->invites_count}}</td>
                             <td>{{$order->status}}</td>
                             <td>
-                                <a href="{{route('orders.show',$order->id)}}" class="btn btn-primary">View</a>
-                                <a href="" class="btn btn-success">Finish </a>
-                                <a href="" class="btn btn-warning">Cancel</a>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <a href="{{route('orders.show',$order->id)}}" class="btn btn-primary">View</a>
+
+                                    </div>
+                                    <div class="col-2">
+                                        <a href="{{route('orders.edit',$order->id)}}" class="btn btn-success">Finish </a>
+
+                                    </div>
+                                    <div class="col-2">
+                                        <form action="{{route('orders.destroy',$order->id)}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button  type="submit" class="btn btn-warning">Cancel</button>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+
 
                             </td>
                         </tr>

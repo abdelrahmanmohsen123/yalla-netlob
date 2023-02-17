@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\OrderdetailController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,13 +45,22 @@ Route::post('addFrientoGroub', [GroubController::class, 'addFrientoGroub'])->nam
 Route::resource('friends', FriendController::class)->middleware('auth');
 Route::resource('orders', OrderController::class)->middleware('auth');
 Route::resource('orderdetails', OrderdetailController::class)->middleware('auth');
+// delete frinds from invites order
 
+Route::delete('orders.delete.friend/{id}', [OrderdetailController::class, 'delete_friend_invite'])->name('orders.delete.friend');
 
 Route::delete('deleteFrientoGroub', [GroubController::class, 'deleteFrientoGroub'])->name('friends_groub.destroy');
 
 
+<<<<<<< HEAD
 Route::get('/info', function () {
     return view('layouts.info');
 });
+=======
+// Notification
+Route::get('/notifications', [NotificationController::class, 'getAll'])->name('notifys.all');
+Route::get('/notifyseen/{id}', [NotificationController::class, 'changeSeen']);
+
+>>>>>>> eec6c83f9abeeae71bb45dbf94e02359532cecaa
 //send notification
 // Route::get('/send-notification', [NotificationController::class, 'sendOfferNotification']);

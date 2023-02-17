@@ -135,20 +135,14 @@
                     <!-- Notifications -->
                     <div class="dropdown">
                         <a class="text-reset me-3 dropdown-toggle hidden-arrow" href="#"
-                            id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                            id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" v-pre>
                             <i class="fas fa-bell"></i>
-                            <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                            <span class="badge rounded-pill badge-notification bg-danger" id="nots_count"></span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" href="#">Some news</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Another news</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </li>
+                        <ul class="dropdown-menu dropdown-menu-end" id="nots"
+                            aria-labelledby="navbarDropdownMenuLink">
+
                         </ul>
                     </div>
                     <!-- Avatar -->
@@ -167,6 +161,9 @@
                                 </li>
                             @endif
                         @else
+                            <div class="circle-rounded">
+                                <img src="{{ asset('images/default.jpg') }}" width="50px" alt="">
+                            </div>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -196,26 +193,46 @@
             @yield('content')
         </main>
     </div>
+
     @yield('script')
-    {{-- <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script> --}}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="{{ asset('jquery/jquery-3.5.1.js') }}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
+
     <script>
-        $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
-        });
-    </script> --}}
-    {{-- select2 cdn  --}}
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
-        integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- JQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
-        integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
-    @yield('js')
+        let ul = document.querySelector('#nots');
 
+        fetch('/notifications')
+            .then(res => res.json())
+            .then(res => {
+                // console.log(res);
+                document.querySelector('#nots_count').textContent = res.length;
+                if (res.length == 0) {
+                    document.querySelector('#nots_count').textContent = '';
+                    ul.innerHTML = '<small>There is no any invitation</small>';
+                } else {
+                    for (let i = 0; i < res.length; i++) {
+                        addListItem(res[i].sender.name)
+                    }
+                }
+            })
+        document.querySelector('#navbarDropdownMenuLink').addEventListener('click', () => {
+            fetch('/notifyseen/' + {{ auth()->id() }}).then(res => res.json()).then(res => document.querySelector(
+                '#nots_count').textContent = '')
+        })
+
+        function addListItem(sender) {
+            let li = document.createElement('li');
+            li.innerHTML =
+                `<a class="dropdown-item"><b class="text-danger">${sender}</b> has invited you to eat together</a>`;
+            ul.appendChild(li);
+        }
+
+        // $(document).ready(function() {
+        //     $('.js-example-basic-multiple').select2();
+        // });
+    </script>
+    @yield('js')
 </body>
 
 </html>

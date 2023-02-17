@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Friend;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Mail\Subscribe;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -42,25 +44,55 @@ class FriendController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|max:100',
-            'email' => 'required|email|unique:friends',
-        ]);
+
+        // $request->validate([
+        //     'name' => 'required|max:100',
+        //     'email' => 'required|email|unique:friends',
+        // ]);
 
         // dd($request->all());
         $email = $request->all()['email'];
-        // array_push($request->all(),['user_id'=>auth()->id]);
-        // $subscriber =  Friend::create($request->all());
+
+        $friend = Friend::where('email',$email)->where('user_id',auth()->id())->first();
+        // dd($friend);
+        if($friend){
+            // dd($friend);
+            return to_route('friends.index')->with('error', 'This is an existing friend already');
+        }
+        // echo 'not a friend';
+        // return dd($friend);
+
+
+        if(!User::where('email',$email)->first()){
+            Mail::to($email)->send(new Subscribe($email));
+            return to_route('friends.index')->with('success', 'this email is not found in system, we have sent an invitation to him !');
+        }
+
         $new_friend = new Friend();
         $new_friend->name = $request->name;
         $new_friend->email = $request->email;
         $new_friend->user_id = auth()->id();
-        $new_friend->save();
 
-        if ($new_friend) {
-            Mail::to($email)->send(new Subscribe($email));
-            return to_route('friends.index')->with('success', 'Your Friend has been added successfully!');
+        if($new_friend->save())
+        {
+            Notification::create([
+                'sender_id' => auth()->id(),
+                'receiver_id' => User::where('email',$request->email)->first()->id,
+                'status' => false,
+
+            ]);
+            return to_route('friends.index')->with('success', 'friend is added successfully');
+        }else{
+            return to_route('friends.index')->with('error', 'error in saving friend');
         }
+
+
+
+        // new friend
+        // $subscriber =  Friend::create($request->all());
+        // array_push($request->all(),['user_id'=>auth()->id]);
+        // $subscriber =  Friend::create($request->all());
+
     }
 
 

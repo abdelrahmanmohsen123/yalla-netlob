@@ -13,4 +13,9 @@ class Order extends Model
     {
         return $this->hasMany(Order::class,'order_id');
     }
+
+    public function friends()
+    {
+        return $this->belongsToMany(Friend::class);
+    }
 }

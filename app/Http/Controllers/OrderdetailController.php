@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Friend;
+use App\Models\FriendOrder;
 use App\Models\Orderdetail;
 use Illuminate\Http\Request;
 
@@ -100,4 +102,16 @@ class OrderdetailController extends Controller
     {
         //
     }
+
+    // delet friend invites
+
+    public function delete_friend_invite($id)
+    {
+        $FriendOrder = FriendOrder::where('friend_id',$id)->first();
+        $FriendOrder->delete();
+        return redirect()->back()->with('success', 'Your Friend Invite has been deleted successfully!');
+
+        //
+    }
+
 }

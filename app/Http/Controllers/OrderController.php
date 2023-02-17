@@ -78,7 +78,7 @@ class OrderController extends Controller
             FriendOrder::insert( $friends_invites );
 
 
-        return redirect()->route('orders.index')->with('success', 'Your Post has been added successfully!');
+        return redirect()->route('orders.index')->with('success', 'Your Order has been added successfully!');
     }
 
     /**
@@ -90,8 +90,14 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         //
+
+        // count($request->invite_friends);
+        $count_invite = FriendOrder::where('order_id',$order->id)->count();
+        $friends_invites_orders = FriendOrder::where('order_id',$order->id)->get();
+        // dd($count_invite);
+
         $orderDetals = Orderdetail::where('order_id',$order->id )->get();
-        return view('orders.show',['order'=>$order,'orderDetals'=>$orderDetals]);
+        return view('orders.show',['order'=>$order,'orderDetals'=>$orderDetals,'count_invite'=>$count_invite]);
 
     }
 
@@ -103,7 +109,11 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        $order->status = 'finished';
+        $order->save();
+        $orders = Order::where('user_id',auth()->id())->get();
+        return redirect()->back()->with('success', 'Your Order has been updated successfully!');
+
     }
 
     /**
@@ -125,7 +135,9 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Order $order)
-    {
-        //
+    {   $order->status = 'cancel';
+        $order->save();
+        $order->delete();
+        return redirect()->back()->with('success', 'Your Order has been Cancelled successfully!');
     }
 }
