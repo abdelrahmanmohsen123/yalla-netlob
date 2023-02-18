@@ -15,7 +15,9 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    // 'name' => env('APP_NAME', 'Yalla netlop'),
+    'name' => 'Yalla Netlob',
+
 
     /*
     |--------------------------------------------------------------------------

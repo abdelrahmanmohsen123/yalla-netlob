@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Friend;
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // $user = User::where('id',auth()->id())->get();
+
+        // $friends = Friend::where('user_id',auth()->id())->get();
+
+        // dd($friends);
+        $latest_orders = Order::where('user_id',auth()->id())->get();
+        return view('home',compact('latest_orders'));
     }
 }

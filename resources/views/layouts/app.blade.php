@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    {{-- favicon --}}
+    <link rel="shortcut icon" class="rounded" href="{{ asset('images/yalla.png') }}">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -85,6 +87,7 @@
     </style>
     @stack('css')
     @stack('styles')
+    {{-- @yield('title') --}}
     {{-- select2 cdn  --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>

@@ -57,6 +57,7 @@ use Carbon\Carbon;
                                         <a href="{{route('orders.show',$order->id)}}" class="btn btn-primary">View</a>
 
                                     </div>
+                                    @if ($order->status == 'waiting')
                                     <div class="col-2">
                                         <a href="{{route('orders.edit',$order->id)}}" class="btn btn-success">Finish </a>
 
@@ -68,6 +69,8 @@ use Carbon\Carbon;
                                             <button  type="submit" class="btn btn-warning">Cancel</button>
                                         </form>
                                     </div>
+                                    @endif
+
 
                                 </div>
 

@@ -21,4 +21,8 @@ class Friend extends Model
     {
         return $this->belongsToMany(Groub::class);
     }
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'friend_order');
+    }
 }

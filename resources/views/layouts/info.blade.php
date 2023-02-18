@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('title','All Products')
+@section('title','Info')
 
 @section('content')
 <div class="row">
     <div class="col-6">
         <fieldset>
             <legend>Lastest Orders</legend>
-            
+
 
 
           </fieldset>
@@ -14,9 +14,9 @@
     <div class="col-6">
         <fieldset>
             <legend>Friends Activity</legend>
-            
 
-            
+
+
           </fieldset>
     </div>
 

@@ -60,7 +60,7 @@ use Carbon\Carbon;
                         @empty
 
                         <tr class="text-center">
-                            <th colspan="4" class="alert alert-danger">There is no Order</th>
+                            <th colspan="4" class="alert alert-danger">There is no Items In This Order</th>
 
                          </tr>
 
