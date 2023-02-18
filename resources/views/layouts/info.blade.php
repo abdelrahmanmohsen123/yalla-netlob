@@ -7,11 +7,15 @@
         <fieldset>
             <legend>Lastest Orders</legend>
             
+
+
           </fieldset>
     </div>
     <div class="col-6">
         <fieldset>
             <legend>Friends Activity</legend>
+            
+
             
           </fieldset>
     </div>

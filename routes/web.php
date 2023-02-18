@@ -52,15 +52,12 @@ Route::delete('orders.delete.friend/{id}', [OrderdetailController::class, 'delet
 Route::delete('deleteFrientoGroub', [GroubController::class, 'deleteFrientoGroub'])->name('friends_groub.destroy');
 
 
-<<<<<<< HEAD
 Route::get('/info', function () {
     return view('layouts.info');
 });
-=======
 // Notification
 Route::get('/notifications', [NotificationController::class, 'getAll'])->name('notifys.all');
 Route::get('/notifyseen/{id}', [NotificationController::class, 'changeSeen']);
 
->>>>>>> eec6c83f9abeeae71bb45dbf94e02359532cecaa
 //send notification
 // Route::get('/send-notification', [NotificationController::class, 'sendOfferNotification']);
