@@ -17,12 +17,12 @@ https://user-images.githubusercontent.com/64663044/219979837-2230870b-0110-4165-
 
 ## Getting Started
 
-To get started with FoodTogether, you will need to have a basic understanding of Laravel and how it works. Once you have a basic understanding, you can clone the repository from GitHub and run the necessary commands to get the application up and running.
+To get started with Yalla Notlob, you will need to have a basic understanding of Laravel and how it works. Once you have a basic understanding, you can clone the repository from GitHub and run the necessary commands to get the application up and running.
 
 ## Documentation
 
-You can find the full documentation for FoodTogether in the GitHub repository. It includes instructions for setting up the application and how to use the various features.
+You can find the full documentation for Yalla Notlob in the GitHub repository. It includes instructions for setting up the application and how to use the various features.
 
 ## Contributing
 
-If you are interested in contributing to FoodTogether, you can find the code in the GitHub repository. Pull requests are welcome.
+If you are interested in contributing to Yalla Notlob, you can find the code in the GitHub repository. Pull requests are welcome.
